@@ -1,0 +1,842 @@
+/* ============================================
+   Manager Dashboard — Premium Dark-Mode Design
+   ============================================ */
+
+.mgr {
+    padding: 2rem 1.5rem 4rem;
+    max-width: 1280px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* ---- Toast / Alerts ---- */
+.mgr-toast {
+    position: fixed;
+    top: 80px;
+    right: 24px;
+    z-index: 1000;
+    padding: 0.85rem 1.25rem;
+    border-radius: var(--radius-lg);
+    font-size: 0.875rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: var(--shadow-lg);
+    animation: mgr-slide-in 0.35s ease;
+    max-width: 380px;
+}
+
+.mgr-toast.success {
+    background: linear-gradient(135deg, #059669, #10b981);
+    color: white;
+}
+
+.mgr-toast.error {
+    background: linear-gradient(135deg, #dc2626, #ef4444);
+    color: white;
+}
+
+@keyframes mgr-slide-in {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* ---- Header ---- */
+.mgr-header {
+    margin-bottom: 2rem;
+}
+
+.mgr-header-left {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.mgr-avatar-upload {
+    position: relative;
+    width: 72px;
+    height: 72px;
+    border-radius: 1rem;
+    overflow: hidden;
+    cursor: pointer;
+    flex-shrink: 0;
+    border: 2px solid var(--border-color);
+    transition: border-color 0.25s;
+}
+
+.mgr-avatar-upload:hover {
+    border-color: var(--primary-400);
+}
+
+.mgr-avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.mgr-avatar-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-secondary);
+    color: var(--text-tertiary);
+}
+
+.mgr-avatar-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.mgr-avatar-upload:hover .mgr-avatar-overlay {
+    opacity: 1;
+}
+
+.mgr-avatar-spinner {
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: mgr-spin 0.7s linear infinite;
+}
+
+.mgr-header h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+}
+
+.mgr-header-sub {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.mgr-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-full);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.mgr-badge.pending {
+    background: rgba(234, 179, 8, 0.15);
+    color: #eab308;
+    border: 1px solid rgba(234, 179, 8, 0.3);
+}
+
+.mgr-badge.active {
+    background: rgba(16, 185, 129, 0.15);
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+/* ---- Tab Nav ---- */
+.mgr-tabs {
+    display: flex;
+    gap: 0.25rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-xl);
+    padding: 0.3rem;
+    margin-bottom: 2rem;
+    overflow-x: auto;
+}
+
+.mgr-tab {
+    padding: 0.6rem 1.25rem;
+    border: none;
+    background: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-tertiary);
+    cursor: pointer;
+    border-radius: var(--radius-lg);
+    transition: all 0.25s ease;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.mgr-tab:hover {
+    color: var(--text-primary);
+    background: var(--bg-card);
+}
+
+.mgr-tab.active {
+    background: var(--accent-gradient);
+    color: white;
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.35);
+}
+
+/* ---- Card / Panel ---- */
+.mgr-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-xl);
+    padding: 1.5rem;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: border-color 0.2s ease;
+}
+
+.mgr-card:hover {
+    border-color: var(--primary-400);
+}
+
+.mgr-card h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* ---- Stats Grid ---- */
+.mgr-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.mgr-stat {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-xl);
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.mgr-stat::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    border-radius: 3px 3px 0 0;
+}
+
+.mgr-stat:nth-child(1)::before {
+    background: linear-gradient(90deg, #6366f1, #8b5cf6);
+}
+
+.mgr-stat:nth-child(2)::before {
+    background: linear-gradient(90deg, #06b6d4, #22d3ee);
+}
+
+.mgr-stat:nth-child(3)::before {
+    background: linear-gradient(90deg, #10b981, #34d399);
+}
+
+.mgr-stat:nth-child(4)::before {
+    background: linear-gradient(90deg, #f59e0b, #fbbf24);
+}
+
+.mgr-stat:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.mgr-stat-value {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.2;
+}
+
+.mgr-stat-label {
+    font-size: 0.8rem;
+    color: var(--text-tertiary);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+/* ---- Table ---- */
+.mgr-table-wrap {
+    overflow-x: auto;
+    border-radius: var(--radius-lg);
+}
+
+.mgr-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.mgr-table th {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.8rem;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    border-bottom: 1px solid var(--border-color);
+    white-space: nowrap;
+}
+
+.mgr-table td {
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border-color);
+    vertical-align: middle;
+}
+
+.mgr-table tbody tr {
+    transition: background 0.15s ease;
+}
+
+.mgr-table tbody tr:hover {
+    background: rgba(99, 102, 241, 0.04);
+}
+
+.mgr-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* ---- Status Badges ---- */
+.mgr-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.2rem 0.65rem;
+    border-radius: var(--radius-full);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: capitalize;
+    white-space: nowrap;
+}
+
+.mgr-status.reserved {
+    background: rgba(234, 179, 8, 0.15);
+    color: #eab308;
+}
+
+.mgr-status.confirmed {
+    background: rgba(59, 130, 246, 0.15);
+    color: #3b82f6;
+}
+
+.mgr-status.in_progress {
+    background: rgba(139, 92, 246, 0.15);
+    color: #8b5cf6;
+}
+
+.mgr-status.completed {
+    background: rgba(16, 185, 129, 0.15);
+    color: #10b981;
+}
+
+.mgr-status.cancelled {
+    background: rgba(107, 114, 128, 0.15);
+    color: #6b7280;
+}
+
+.mgr-status.no_show {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+}
+
+/* ---- Buttons ---- */
+.mgr-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 0.55rem 1.15rem;
+    border: none;
+    border-radius: var(--radius-lg);
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.mgr-btn.primary {
+    background: var(--accent-gradient);
+    color: white;
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+}
+
+.mgr-btn.primary:hover {
+    box-shadow: 0 4px 14px rgba(99, 102, 241, 0.5);
+    transform: translateY(-1px);
+}
+
+.mgr-btn.secondary {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.mgr-btn.secondary:hover {
+    border-color: var(--primary-400);
+    background: var(--bg-card);
+}
+
+.mgr-btn.danger {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.mgr-btn.danger:hover {
+    background: rgba(239, 68, 68, 0.2);
+}
+
+.mgr-btn.sm {
+    padding: 0.3rem 0.65rem;
+    font-size: 0.75rem;
+    border-radius: var(--radius-md);
+}
+
+.mgr-btn.full {
+    width: 100%;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.95rem;
+}
+
+/* ---- Forms ---- */
+.mgr-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.mgr-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.mgr-form-group.full {
+    grid-column: 1 / -1;
+}
+
+.mgr-form-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.mgr-input {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 0.65rem 0.85rem;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    transition: all 0.2s ease;
+    font-family: inherit;
+    width: 100%;
+}
+
+.mgr-input:focus {
+    outline: none;
+    border-color: var(--primary-500);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+.mgr-input:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ---- Filter Tabs (within panels) ---- */
+.mgr-filters {
+    display: flex;
+    gap: 0.25rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+}
+
+.mgr-filter {
+    padding: 0.4rem 0.85rem;
+    border: 1px solid var(--border-color);
+    background: none;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-tertiary);
+    cursor: pointer;
+    border-radius: var(--radius-full);
+    transition: all 0.2s ease;
+}
+
+.mgr-filter:hover {
+    border-color: var(--primary-400);
+    color: var(--text-primary);
+}
+
+.mgr-filter.active {
+    background: var(--primary-500);
+    border-color: var(--primary-500);
+    color: white;
+}
+
+/* ---- Action row ---- */
+.mgr-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+/* ---- Slots Grid ---- */
+.mgr-slots-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 0.5rem;
+}
+
+.mgr-slot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+    padding: 0.65rem 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: var(--bg-card);
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.mgr-slot:hover {
+    border-color: var(--primary-400);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+}
+
+.mgr-slot.blocked {
+    opacity: 0.45;
+    background: var(--bg-secondary);
+    border-style: dashed;
+}
+
+.mgr-slot-cap {
+    font-size: 0.7rem;
+    color: var(--text-tertiary);
+}
+
+/* ---- Service Cards ---- */
+.mgr-services-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+}
+
+.mgr-service-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 1.15rem;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.mgr-service-card:hover {
+    border-color: var(--primary-400);
+}
+
+.mgr-service-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.mgr-service-name {
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--text-primary);
+}
+
+.mgr-service-price {
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--primary-500);
+}
+
+.mgr-service-desc {
+    font-size: 0.8rem;
+    color: var(--text-tertiary);
+    line-height: 1.4;
+}
+
+.mgr-service-meta {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    font-size: 0.78rem;
+    color: var(--text-tertiary);
+}
+
+.mgr-service-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.25rem;
+}
+
+/* ---- Operating Hours ---- */
+.mgr-hours-row {
+    display: grid;
+    grid-template-columns: 120px 1fr 1fr 60px;
+    gap: 0.75rem;
+    align-items: center;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.mgr-hours-row:last-child {
+    border-bottom: none;
+}
+
+.mgr-hours-day {
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+}
+
+.mgr-hours-day.closed {
+    color: var(--text-tertiary);
+    text-decoration: line-through;
+}
+
+.mgr-toggle {
+    width: 40px;
+    height: 22px;
+    border-radius: 11px;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    transition: background 0.25s ease;
+    background: #10b981;
+}
+
+.mgr-toggle.off {
+    background: var(--border-color);
+}
+
+.mgr-toggle::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: white;
+    transition: transform 0.25s ease;
+}
+
+.mgr-toggle.off::after {
+    transform: translateX(0);
+}
+
+.mgr-toggle:not(.off)::after {
+    transform: translateX(18px);
+}
+
+/* ---- Create Tenant Card ---- */
+.mgr-create-card {
+    max-width: 550px;
+    margin: 3rem auto;
+    text-align: center;
+}
+
+.mgr-create-card h1 {
+    font-size: 1.5rem;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 0.35rem;
+}
+
+.mgr-create-card>p {
+    color: var(--text-tertiary);
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+}
+
+.mgr-create-card form {
+    text-align: left;
+}
+
+/* ---- Empty State ---- */
+.mgr-empty {
+    text-align: center;
+    padding: 2.5rem 1rem;
+    color: var(--text-tertiary);
+    font-size: 0.9rem;
+}
+
+.mgr-empty-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    opacity: 0.5;
+}
+
+/* ---- Schedule row (overview) ---- */
+.mgr-schedule-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.mgr-schedule-item:last-child {
+    border-bottom: none;
+}
+
+.mgr-schedule-time {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--primary-500);
+    min-width: 70px;
+}
+
+.mgr-schedule-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.mgr-schedule-customer {
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.mgr-schedule-service {
+    font-size: 0.8rem;
+    color: var(--text-tertiary);
+}
+
+/* ---- Loading Spinner ---- */
+.mgr-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+}
+
+.mgr-spinner {
+    width: 36px;
+    height: 36px;
+    border: 3px solid var(--border-color);
+    border-top-color: var(--primary-500);
+    border-radius: 50%;
+    animation: mgr-spin 0.7s linear infinite;
+}
+
+@keyframes mgr-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ---- Two Column Layout ---- */
+.mgr-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin-bottom: 1.25rem;
+}
+
+/* ---- Customer Cell ---- */
+.mgr-customer-cell {
+    display: flex;
+    flex-direction: column;
+}
+
+.mgr-customer-cell span {
+    font-size: 0.78rem;
+    color: var(--text-tertiary);
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 900px) {
+    .mgr-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .mgr-grid-2 {
+        grid-template-columns: 1fr;
+    }
+
+    .mgr-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .mgr-hours-row {
+        grid-template-columns: 100px 1fr 1fr 50px;
+        gap: 0.5rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .mgr {
+        padding: 1rem 0.75rem 3rem;
+    }
+
+    .mgr-stats {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .mgr-tabs {
+        border-radius: var(--radius-lg);
+    }
+
+    .mgr-services-list {
+        grid-template-columns: 1fr;
+    }
+
+    .mgr-hours-row {
+        grid-template-columns: 1fr;
+        gap: 0.35rem;
+    }
+}
