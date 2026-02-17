@@ -57,12 +57,6 @@ cd frontend
 npm run dev
 ```
 
-Visit **http://localhost:5173**
-
-### Default Admin Account
-After running migrations and seed, log in with:
-- Email: `admin@washco.com`
-- Password: `admin123`
 
 > ⚠️ Change the admin password immediately in production!
 
